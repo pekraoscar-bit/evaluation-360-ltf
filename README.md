@@ -75,3 +75,14 @@ que son équipe, la DRH voit tout).
    values ('UUID_COPIÉ', 'drh', 'Nom Prénom');
    ```
 4. Testez la connexion sur `/login` avec cet e-mail/mot de passe
+
+## Gestion des collaborateurs (DRH) — étape suivante réalisée
+
+- `/dashboard/collaborateurs` : liste des 23 collaborateurs (poste, site, N+1,
+  statut du compte), réservée au rôle DRH (redirection sinon)
+- Bouton "Créer un compte" par collaborateur sans compte : génère un mot de
+  passe temporaire affiché une seule fois, crée le compte Supabase Auth, et
+  le relie à l'employé + à un profil (rôle choisi)
+- **Nécessite la variable d'environnement `SUPABASE_SERVICE_ROLE_KEY`** (clé
+  secrète, jamais envoyée au navigateur) pour fonctionner : à ajouter dans
+  Vercel (voir ci-dessous)

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import { LogOut, ClipboardCheck } from "lucide-react";
+import Link from "next/link";
+import { LogOut, ClipboardCheck, Users } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -67,9 +68,17 @@ export default async function DashboardPage() {
               (rôle/employé). La DRH doit le lier depuis l&apos;administration.
             </p>
           )}
+          {profile?.role === "drh" && (
+            <Link href="/dashboard/collaborateurs">
+              <Button variant="secondary" className="w-full">
+                <Users size={16} />
+                Gérer les collaborateurs
+              </Button>
+            </Link>
+          )}
           <p className="text-xs text-foreground/40 pt-2">
-            Le tableau de bord complet (par rôle) sera construit à l&apos;étape
-            suivante du plan de développement.
+            Le reste du tableau de bord (par rôle) sera construit aux étapes
+            suivantes du plan de développement.
           </p>
         </Card>
       </main>
