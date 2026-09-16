@@ -86,3 +86,14 @@ que son équipe, la DRH voit tout).
 - **Nécessite la variable d'environnement `SUPABASE_SERVICE_ROLE_KEY`** (clé
   secrète, jamais envoyée au navigateur) pour fonctionner : à ajouter dans
   Vercel (voir ci-dessous)
+
+## Référentiel (postes, sites, critères) — étape suivante réalisée
+
+- `/dashboard/referentiel` (DRH uniquement) :
+  - Sites : liste + ajout
+  - Postes : liste, activer/désactiver, ajout d'un nouveau poste
+  - Critères : par poste sélectionné, liste, activer/désactiver, ajout
+- Pas de suppression ni de renommage pour l'instant (activer/désactiver suffit
+  à retirer un élément du circuit d'évaluation sans perdre l'historique) — à
+  ajouter plus tard si besoin
+- Aucune nouvelle variable d'environnement nécessaire pour cette étape

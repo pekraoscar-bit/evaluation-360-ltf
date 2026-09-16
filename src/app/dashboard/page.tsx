@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut, ClipboardCheck, Users } from "lucide-react";
+import { LogOut, ClipboardCheck, Users, ListChecks } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -69,12 +69,20 @@ export default async function DashboardPage() {
             </p>
           )}
           {profile?.role === "drh" && (
-            <Link href="/dashboard/collaborateurs">
-              <Button variant="secondary" className="w-full">
-                <Users size={16} />
-                Gérer les collaborateurs
-              </Button>
-            </Link>
+            <div className="space-y-2">
+              <Link href="/dashboard/collaborateurs">
+                <Button variant="secondary" className="w-full">
+                  <Users size={16} />
+                  Gérer les collaborateurs
+                </Button>
+              </Link>
+              <Link href="/dashboard/referentiel">
+                <Button variant="secondary" className="w-full">
+                  <ListChecks size={16} />
+                  Gérer le référentiel
+                </Button>
+              </Link>
+            </div>
           )}
           <p className="text-xs text-foreground/40 pt-2">
             Le reste du tableau de bord (par rôle) sera construit aux étapes
