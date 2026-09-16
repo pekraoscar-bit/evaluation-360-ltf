@@ -122,3 +122,19 @@ que son équipe, la DRH voit tout).
 - Testé sur PostgreSQL local avant livraison : 23 auto-évaluations, 15 N+1,
   15 collaborateurs générées correctement à partir des données réelles
 - Aucune nouvelle variable d'environnement nécessaire
+
+## Formulaire d'évaluation — étape suivante réalisée
+
+- `/dashboard/mes-evaluations` : liste des évaluations attribuées à
+  l'utilisateur connecté (campagne, personne évaluée, source, statut)
+- `/dashboard/mes-evaluations/[id]` : formulaire de notation par critère
+  (1 à 5, avec libellé), commentaire facultatif, barre de progression
+  ("X / N critères complétés"), sauvegarde automatique à chaque note/commentaire,
+  soumission bloquée tant que tous les critères ne sont pas notés, formulaire
+  verrouillé après soumission
+- Accessible à tous les rôles (pas seulement la DRH) — chacun ne voit que ses
+  propres évaluations attribuées
+- Testé de bout en bout sur PostgreSQL local avec les vraies données : création
+  d'évaluation, sauvegarde de 4 réponses, soumission réussie ; confidentialité
+  vérifiée (un autre collaborateur ne voit strictement rien de l'évaluation)
+- Aucune nouvelle variable d'environnement nécessaire

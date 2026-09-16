@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut, ClipboardCheck, Users, ListChecks, CalendarRange, UserCog } from "lucide-react";
+import { LogOut, ClipboardCheck, Users, ListChecks, CalendarRange, UserCog, FileCheck2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -68,6 +68,12 @@ export default async function DashboardPage() {
               (rôle/employé). La DRH doit le lier depuis l&apos;administration.
             </p>
           )}
+          <Link href="/dashboard/mes-evaluations">
+            <Button variant="secondary" className="w-full">
+              <FileCheck2 size={16} />
+              Mes évaluations
+            </Button>
+          </Link>
           {profile?.role === "drh" && (
             <div className="space-y-2">
               <Link href="/dashboard/collaborateurs">

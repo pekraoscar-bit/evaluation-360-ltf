@@ -29,3 +29,27 @@ export async function requireRole(allowed: UserRole[]) {
 
   return { user, profile, supabase };
 }
+
+/**
+ * À appeler en tête d'une page serveur accessible à tout utilisateur
+ * connecté, quel que soit son rôle (ex. ses propres évaluations à remplir).
+ * Redirige vers /login si non connecté.
+ */
+export async function requireAuth() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role, employee_id, full_name")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  return { user, profile, supabase };
+}
