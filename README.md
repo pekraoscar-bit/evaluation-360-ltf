@@ -97,3 +97,14 @@ que son équipe, la DRH voit tout).
   à retirer un élément du circuit d'évaluation sans perdre l'historique) — à
   ajouter plus tard si besoin
 - Aucune nouvelle variable d'environnement nécessaire pour cette étape
+
+## Campagnes d'évaluation — étape suivante réalisée
+
+- `/dashboard/campagnes` (DRH uniquement) :
+  - Création d'une campagne (année + période Avril/Juillet/Octobre/Janvier +
+    dates optionnelles) — nom généré automatiquement, doublon détecté
+  - Liste des campagnes avec changement de statut (Planifiée / Ouverte /
+    Clôturée / Prolongée) directement depuis le tableau
+- Pas encore d'attribution de collaborateurs/évaluateurs à une campagne — sera
+  l'étape suivante du plan
+- Aucune nouvelle variable d'environnement nécessaire
