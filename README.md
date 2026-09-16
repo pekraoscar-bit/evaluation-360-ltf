@@ -108,3 +108,17 @@ que son équipe, la DRH voit tout).
 - Pas encore d'attribution de collaborateurs/évaluateurs à une campagne — sera
   l'étape suivante du plan
 - Aucune nouvelle variable d'environnement nécessaire
+
+## Attribution des évaluateurs — étape suivante réalisée
+
+- `/dashboard/attributions?campagne=<id>` (DRH uniquement) :
+  - Bouton "Générer auto-évaluations + N+1 + collaborateurs" : crée
+    automatiquement, pour chaque employé actif, son auto-évaluation, celle de
+    son N+1 (si renseigné) et celles de ses subordonnés directs — testé
+    idempotent (relancer ne duplique rien)
+  - Ajout manuel des évaluations entre pairs (aucune règle fiable pour les
+    déduire automatiquement des données disponibles)
+  - Suppression d'une attribution individuelle
+- Testé sur PostgreSQL local avant livraison : 23 auto-évaluations, 15 N+1,
+  15 collaborateurs générées correctement à partir des données réelles
+- Aucune nouvelle variable d'environnement nécessaire
