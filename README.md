@@ -138,3 +138,23 @@ que son équipe, la DRH voit tout).
   d'évaluation, sauvegarde de 4 réponses, soumission réussie ; confidentialité
   vérifiée (un autre collaborateur ne voit strictement rien de l'évaluation)
 - Aucune nouvelle variable d'environnement nécessaire
+
+## Calcul des scores — étape suivante réalisée
+
+- **Nouvelle migration SQL à exécuter** : `supabase/migrations/0003_scores.sql`
+  (fonction `get_evaluatee_scores`, SECURITY DEFINER)
+- Calcul 100% côté serveur (fonction PostgreSQL), jamais confié au navigateur
+- Anonymisation garantie structurellement : la fonction ne renvoie que des
+  moyennes par source, jamais l'identité d'un évaluateur individuel ; un tiers
+  qui tente d'appeler la fonction pour quelqu'un d'autre reçoit une erreur
+  d'accès (vérifié)
+- Pondérations et seuils d'appréciation lus dynamiquement depuis
+  `app_settings` (modifiables par la DRH plus tard sans toucher au code)
+- `/dashboard/mes-resultats` : score global /5, appréciation, détail par
+  critère (moyennes par source + score pondéré)
+- **Testé de bout en bout sur PostgreSQL local** avec un scénario réaliste
+  (auto=3, N+1=4, 2 collaborateurs=5 et 3, pair=2) : score pondéré obtenu
+  3.55/5 sur les 4 critères, exactement conforme au calcul manuel attendu
+  (40% collab + 30% N+1 + 15% pairs + 15% auto)
+- 3 cas de sécurité vérifiés : la personne évaluée voit ses résultats, un
+  tiers non autorisé est bloqué (exception), la DRH voit tout

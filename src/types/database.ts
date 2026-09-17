@@ -325,7 +325,21 @@ export type Database = {
       >;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      get_evaluatee_scores: {
+        Args: { p_campaign_id: string; p_evaluatee_id: string };
+        Returns: {
+          criterion_id: string;
+          criterion_name: string;
+          display_order: number;
+          score_auto: number | null;
+          score_n1: number | null;
+          score_collaborateurs: number | null;
+          score_pairs: number | null;
+          weighted_score: number | null;
+        }[];
+      };
+    };
     Enums: {
       user_role: UserRole;
       evaluation_source: EvaluationSourceType;
