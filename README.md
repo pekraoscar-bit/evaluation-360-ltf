@@ -171,3 +171,18 @@ que son équipe, la DRH voit tout).
     trié du meilleur au moins bon
 - Aucune identité d'évaluateur n'est jamais exposée, y compris à la DRH dans
   cette vue — seuls les scores agrégés apparaissent
+
+## Plans d'action et entretiens — étape suivante réalisée
+
+- **Nouvelle migration SQL à exécuter** : `supabase/migrations/0005_action_plans_interviews_rls.sql`
+  (droits d'écriture N+1/collaborateur, jusqu'ici réservés à la DRH — testés :
+  le N+1 peut créer un plan/action/entretien pour son équipe, un tiers non
+  concerné est bloqué)
+- `/dashboard/plans-action` : plan d'action personnel ou celui d'un
+  subordonné (`?employe=<id>`), ajout d'axes/objectifs/actions, changement de
+  statut (À faire/En cours/Réalisé/Reporté/Abandonné)
+- `/dashboard/entretiens` : entretien N+1 ↔ collaborateur pour une campagne
+  (points forts, difficultés, axes, objectifs, actions décidées, commentaire
+  N+1 éditable par le N+1/DRH ; commentaire collaborateur éditable par
+  l'intéressé ; bouton "Entretien réalisé")
+- Testé sur PostgreSQL local avant livraison (création, sécurité)
