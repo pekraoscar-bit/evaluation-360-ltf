@@ -339,6 +339,10 @@ export type Database = {
           weighted_score: number | null;
         }[];
       };
+      get_campaign_scores: {
+        Args: { p_campaign_id: string };
+        Returns: { evaluatee_id: string; overall_score: number | null }[];
+      };
     };
     Enums: {
       user_role: UserRole;

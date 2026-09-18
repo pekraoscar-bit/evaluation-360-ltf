@@ -158,3 +158,16 @@ que son équipe, la DRH voit tout).
   (40% collab + 30% N+1 + 15% pairs + 15% auto)
 - 3 cas de sécurité vérifiés : la personne évaluée voit ses résultats, un
   tiers non autorisé est bloqué (exception), la DRH voit tout
+
+## Résultats globaux DRH — étape suivante réalisée
+
+- **Nouvelle migration SQL à exécuter** : `supabase/migrations/0004_campaign_overview.sql`
+  (fonction `get_campaign_scores`, DRH uniquement — testée : accès refusé à
+  un non-DRH, scores corrects retrouvés)
+- `/dashboard/resultats?campagne=<id>` (DRH uniquement) :
+  - KPIs : collaborateurs actifs, personnes concernées, évaluations
+    soumises/en cours/non commencées, taux de participation, score moyen global
+  - Tableau des scores par collaborateur (poste, score /5, appréciation),
+    trié du meilleur au moins bon
+- Aucune identité d'évaluateur n'est jamais exposée, y compris à la DRH dans
+  cette vue — seuls les scores agrégés apparaissent
