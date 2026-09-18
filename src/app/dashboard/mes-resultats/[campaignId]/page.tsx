@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import { requireAuth } from "@/lib/auth/require-role";
 import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { getAppreciation } from "@/lib/scores/appreciation";
 
 export default async function ResultatsDetailPage({
@@ -67,6 +68,18 @@ export default async function ResultatsDetailPage({
                 {appreciation.label}
               </span>
             )}
+            <div className="pt-2">
+              <a
+                href={`/api/rapport-pdf?employe=${profile.employee_id}&campagne=${campaignId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="secondary" className="text-xs px-2.5 py-1.5">
+                  <Download size={13} />
+                  Télécharger le rapport PDF
+                </Button>
+              </a>
+            </div>
           </Card>
         )}
 

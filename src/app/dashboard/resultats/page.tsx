@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import { requireRole } from "@/lib/auth/require-role";
 import { Card } from "@/components/ui/Card";
 import { getAppreciation } from "@/lib/scores/appreciation";
+import { ExportCsvButton } from "./ExportCsvButton";
 
 function Kpi({ label, value }: { label: string; value: string }) {
   return (
@@ -119,6 +120,18 @@ export default async function ResultatsGlobauxPage({
       </header>
 
       <main className="flex-1 p-6 space-y-6">
+        <div className="flex justify-end">
+          <ExportCsvButton
+            campaignName={campaign?.name ?? "campagne"}
+            rows={rows.map((r) => ({
+              name: r.name,
+              position: r.position,
+              score: r.score,
+              appreciation:
+                r.score != null && settings ? getAppreciation(r.score, settings).label : "En attente",
+            }))}
+          />
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Kpi label="Collaborateurs actifs" value={String(employees?.length ?? 0)} />
           <Kpi label="Personnes concernées" value={String(personnesConcernees)} />
@@ -140,6 +153,7 @@ export default async function ResultatsGlobauxPage({
                 <th className="px-4 py-3 font-medium">Poste</th>
                 <th className="px-4 py-3 font-medium text-center">Score</th>
                 <th className="px-4 py-3 font-medium">Appréciation</th>
+                <th className="px-4 py-3 font-medium w-10" />
               </tr>
             </thead>
             <tbody>
@@ -159,6 +173,19 @@ export default async function ResultatsGlobauxPage({
                         </span>
                       ) : (
                         <span className="text-xs text-foreground/30">En attente</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      {r.score != null && (
+                        <a
+                          href={`/api/rapport-pdf?employe=${r.id}&campagne=${campaignId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Télécharger le rapport PDF"
+                          className="text-foreground/40 hover:text-brand-primary"
+                        >
+                          <Download size={15} />
+                        </a>
                       )}
                     </td>
                   </tr>

@@ -204,3 +204,23 @@ que son équipe, la DRH voit tout).
   téléchargeable en CSV pour transmission aux collaborateurs — affichée une
   seule fois, jamais réaffichable ensuite
 - Aucune nouvelle variable d'environnement ni migration SQL nécessaire
+
+## Exports et rapport PDF — étape suivante réalisée
+
+- **Rapport PDF individuel** (`/api/rapport-pdf?employe=<id>&campagne=<id>`) :
+  en-tête LA TULIPE FOOD, score global + appréciation, tableau des critères
+  (moyennes par source + pondéré), points forts, axes d'amélioration, plan
+  d'action, commentaires N+1/collaborateur, date d'entretien
+  - Accès protégé à deux niveaux : le middleware global (session requise) et
+    un contrôle explicite dans la route (la personne elle-même ou la DRH
+    uniquement, même règle que `get_evaluatee_scores`)
+  - Bouton "Télécharger le rapport PDF" sur "Mes résultats" (pour soi) et sur
+    "Résultats globaux" (la DRH, pour n'importe quel collaborateur)
+- **Export CSV** des résultats globaux d'une campagne (bouton sur la page
+  "Résultats globaux")
+- Génération PDF testée isolément (structure tableaux/conditions/pied de
+  page identique au vrai document) : PDF valide produit sans erreur ; le
+  build Next.js complet compile la route sans erreur
+- Aucune nouvelle variable d'environnement ni migration SQL nécessaire —
+  juste une nouvelle dépendance (`@react-pdf/renderer`), déjà incluse dans
+  `package.json`
