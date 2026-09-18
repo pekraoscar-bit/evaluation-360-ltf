@@ -186,3 +186,21 @@ que son équipe, la DRH voit tout).
   N+1 éditable par le N+1/DRH ; commentaire collaborateur éditable par
   l'intéressé ; bouton "Entretien réalisé")
 - Testé sur PostgreSQL local avant livraison (création, sécurité)
+
+## Création en masse des comptes — étape suivante réalisée
+
+- Page "Gérer les collaborateurs" : nouveau bouton **"Créer tous les comptes
+  manquants"** — crée en une fois un compte pour chaque collaborateur actif
+  sans compte
+- E-mail généré à partir du **matricule** (ex. `21ltf019@latulipefood.ci`) —
+  fiable et unique, contrairement à un identifiant basé sur le nom (accents,
+  homonymes). Modifiable ensuite au cas par cas via le bouton individuel
+  existant.
+- Rôle déduit automatiquement de l'organigramme : "N+1" pour tout employé
+  encadrant au moins un subordonné, "Collaborateur" sinon — à ajuster
+  manuellement si besoin (pas encore d'interface de changement de rôle,
+  possible directement dans Supabase Table Editor > profiles en attendant)
+- Liste des identifiants générés (e-mail + mot de passe temporaire)
+  téléchargeable en CSV pour transmission aux collaborateurs — affichée une
+  seule fois, jamais réaffichable ensuite
+- Aucune nouvelle variable d'environnement ni migration SQL nécessaire

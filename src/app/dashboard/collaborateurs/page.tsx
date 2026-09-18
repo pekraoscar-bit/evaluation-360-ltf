@@ -3,6 +3,8 @@ import { ArrowLeft, UserCheck } from "lucide-react";
 import { requireRole } from "@/lib/auth/require-role";
 import { Card } from "@/components/ui/Card";
 import { CreateAccountButton } from "./CreateAccountButton";
+import { BulkCreateAccountsButton } from "./BulkCreateAccountsButton";
+import { emailFromMatricule } from "./utils";
 
 export default async function CollaborateursPage() {
   const { supabase } = await requireRole(["drh"]);
@@ -20,18 +22,6 @@ export default async function CollaborateursPage() {
   const siteById = new Map((sites ?? []).map((s) => [s.id, s.name]));
   const employeeById = new Map((employees ?? []).map((e) => [e.id, e.full_name]));
 
-  function suggestedEmail(fullName: string) {
-    const slug = fullName
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z\s]/g, "")
-      .trim()
-      .split(/\s+/)
-      .join(".");
-    return `${slug}@latulipefood.ci`;
-  }
-
   return (
     <div className="min-h-full flex flex-col">
       <header className="border-b border-brand-border bg-brand-surface px-6 py-4 flex items-center gap-3">
@@ -42,7 +32,10 @@ export default async function CollaborateursPage() {
         <span className="text-sm text-foreground/40">({employees?.length ?? 0})</span>
       </header>
 
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 space-y-6">
+        <Card className="p-5">
+          <BulkCreateAccountsButton />
+        </Card>
         <Card className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -78,7 +71,7 @@ export default async function CollaborateursPage() {
                     ) : (
                       <CreateAccountButton
                         employeeId={emp.id}
-                        suggestedEmail={suggestedEmail(emp.full_name)}
+                        suggestedEmail={emailFromMatricule(emp.matricule)}
                       />
                     )}
                   </td>
